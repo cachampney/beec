@@ -11,24 +11,51 @@ for i in range(0, n):
     v = int(client_pipe_list[1])  # sales value of client ordered pipe
     wt.append(c)
     p.append(v)
+#print_k(k)
 #print(p)
 #print(wt)
-#k_str = ""
-#for i in range(len(k)):
-#    for j in range(len(k[0])):
-#        k_str += str(k[i][j])
-#    k_str += "\n"
-#print(k_str)
+#def print_k(k1):
+#    k_str = ""
+#    for i in range(len(k1)):
+#        for j in range(len(k1[0])):
+#            k_str += str(k1[i][j])
+#        k_str += "\n"
+#    print(k_str)
+
+#print_k(k)
+# need another counter
+#for i in range(1, n+1):
+#
+#    value = p[i]
+#    size = wt[i]
+#    count1=0
+#    count2=-1
+#    for w in range(1, t+1):
+#        if w % size == 0:
+#            count1+=1
+#        if size <= w:
+#            if value*count1 < k[i-1][w]:
+#                if w % size == 0:
+#                    count2+=1
+#                k[i][w] = max((value*count2) + k[i - 1][w - size], k[i - 1][w], value * count1)
+#            else:
+#                k[i][w] = max(value + k[i - 1][w - size], k[i - 1][w], value*count1)
+#        else:
+#            k[i][w] = max(k[i-1][w], value*count1)
+        #print_k(k)
+
 
 for i in range(1, n+1):
+
     value = p[i]
     size = wt[i]
+    count1=0
     for w in range(1, t+1):
         if w % size == 0:
-            k[i][w] = max(value + k[i - 1][w - size], k[i - 1][w], value)
-            value += p[i]
-        elif size <= w:
-            k[i][w] = max(value+k[i-1][w-size], k[i-1][w])
+            count1+=1
+        if size <= w:
+            k[i][w] = max(value + k[i - 1][w - size], k[i - 1][w], value*count1)
         else:
-            k[i][w] = k[i-1][w]
+            k[i][w] = max(k[i-1][w], value*count1)
+        #print_k(k)
 print(k[n][t])

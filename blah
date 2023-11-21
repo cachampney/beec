@@ -1,0 +1,34 @@
+
+n_and_t_list = input().split(" ")
+n = int(n_and_t_list[0])  # number of different pipe sizes
+t = int(n_and_t_list[1])  # size of each pipe produced by OBI
+p = [0]
+wt = [0]
+k = [[0]*(t+1) for _ in range(n+1)]  # initialize array[n+1][t+1] with 0s
+for i in range(0, n):
+    client_pipe_list = input().split(" ")
+    c = int(client_pipe_list[0])  # length of client ordered pipe
+    v = int(client_pipe_list[1])  # sales value of client ordered pipe
+    wt.append(c)
+    p.append(v)
+#print(p)
+#print(wt)
+#k_str = ""
+#for i in range(len(k)):
+#    for j in range(len(k[0])):
+#        k_str += str(k[i][j])
+#    k_str += "\n"
+#print(k_str)
+
+for i in range(1, n+1):
+    value = p[i]
+    size = wt[i]
+    for w in range(1, t+1):
+        if w % size == 0:
+            k[i][w] = max(value + k[i - 1][w - size], k[i - 1][w], value)
+            value += p[i]
+        elif size <= w:
+            k[i][w] = max(value+k[i-1][w-size], k[i-1][w])
+        else:
+            k[i][w] = k[i-1][w]
+print(k[n][t])
